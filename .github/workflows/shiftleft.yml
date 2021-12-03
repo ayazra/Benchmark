@@ -32,7 +32,7 @@ jobs:
       run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
       id: extract_branch
     - name: NextGen Static Analysis
-      run: ${GITHUB_WORKSPACE}/sl analyze --wait --app Benchmark --tag branch=${{ github.head_ref || steps.extract_branch.outputs.branch }} --java --cpg target/benchmark.war
+      run: ${GITHUB_WORKSPACE}/sl analyze --strict --wait --analysis-timeout=1h --app Benchmark --tag branch=${{ github.head_ref || steps.extract_branch.outputs.branch }} --java --cpg target/benchmark.war
       env:
         SHIFTLEFT_ACCESS_TOKEN: ${{ secrets.SHIFTLEFT_ACCESS_TOKEN }}
         
@@ -94,7 +94,7 @@ jobs:
       if: github.event_name == 'pull_request'
       env:
         OWASP_BENCHMARK_CHECKSUM: ${{ env.OWASP_BENCHMARK_CHECKSUM }}
-        SHIFTLEFT_USER_ID_V2: 1f915538-f58f-4d02-8a9b-1bae02034eb9
+        SHIFTLEFT_USER_ID_V2: f924975c-4e3d-479e-ae7b-c83b3e87c191
         SHIFTLEFT_ACCESS_TOKEN: ${{ secrets.SHIFTLEFT_ACCESS_TOKEN }}
         
       with:
